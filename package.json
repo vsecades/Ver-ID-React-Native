@@ -23,7 +23,11 @@
     "typescript": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
-    "build": "yarn lint && yarn typescript && yarn prepare"
+    "build": "yarn lint && yarn typescript && yarn prepare",
+    "pod:sample:0_63": "cd samples/reactNativeSample0_63 && pod-install --quiet",
+    "ios:sample:0_63": "yarn sample:0_63 ios",
+    "sample:0_63": "yarn --cwd samples/reactNativeSample0_63",
+    "build:sample:0_63": "yarn sample:0_63 && yarn && yarn pod:sample:0_63"
   },
   "keywords": [
     "react-native",
