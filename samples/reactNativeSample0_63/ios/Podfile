@@ -6,6 +6,7 @@ platform :ios, '10.3'
 target 'reactNativeSample0_63' do
   config = use_native_modules!
   use_frameworks!
+  pod 'appliedrec-react-native-plugin-ver-id', :path => '../../..'
 
   use_react_native!(:path => config["reactNativePath"])
 
