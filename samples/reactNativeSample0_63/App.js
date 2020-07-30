@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ReactNativePluginVerId, {TestComponent} from "@appliedrec/react-native-plugin-ver-id";
+import {TestComponent} from '@appliedrec/react-native-plugin-ver-id';
 
 const App: () => React$Node = () => {
-  return (<TestComponent verid={ReactNativePluginVerId}/>);
+    return <TestComponent />;
 };
 
 export default App;
