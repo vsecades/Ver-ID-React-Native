@@ -24,11 +24,7 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "prepare": "bob build",
     "build-project": "yarn && yarn lint && yarn typescript",
-    "build": "node scripts/build.js",
-    "pod:sample:0_63": "cd samples/reactNativeSample0_63 && pod-install --quiet",
-    "ios:sample:0_63": "yarn sample:0_63 ios",
-    "sample:0_63": "yarn --cwd samples/reactNativeSample0_63",
-    "build:sample:0_63": "yarn sample:0_63 && yarn && yarn pod:sample:0_63"
+    "build": "node scripts/build.js"
   },
   "keywords": [
     "react-native",
