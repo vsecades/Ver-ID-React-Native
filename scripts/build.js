@@ -4,9 +4,8 @@ const inquirer = require('inquirer');
 const { spawn } = require('child_process');
 
 const getSampleCommand = function (sample) {
-    let result = `yarn --cwd samples/${sample}`;
-    result += `yarn && cd samples/${sample} `;
-    result += `&& pod-install --quiet`;
+    let result = `cd samples/${sample} &&`;
+    result += `yarn &&  pod-install --quiet`;
     return result;
 };
 
