@@ -20,7 +20,7 @@ const commands = {
     0: 'yarn build-project',
     1: `yarn build-project && ${getSampleCommand('reactNativeSample0_63')}`,
     2: 'yarn --cwd samples/reactNativeSample0_63 ios',
-    3: 'yarn --cwd samples/reactNativeSample0_63 start',
+    3: 'yarn --cwd samples/reactNativeSample0_63 start --reset-cache',
     4: 'adb reverse tcp:8081 tcp:8081',
 };
 
