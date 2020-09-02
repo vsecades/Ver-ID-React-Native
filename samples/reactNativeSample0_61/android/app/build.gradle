@@ -128,7 +128,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.reactnativesample0_61"
+        applicationId "com.appliedrec.veridreactnativesample"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -176,11 +176,18 @@ android {
 
         }
     }
+    packagingOptions {
+        merge "lib/armeabi-v7a/libc++_shared.so"
+        merge "lib/arm64-v8a/libc++_shared.so"
+        merge "lib/x86/libc++_shared.so"
+        merge "lib/x86_64/libc++_shared.so"
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation project(':appliedrecreactnativepluginverid')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
