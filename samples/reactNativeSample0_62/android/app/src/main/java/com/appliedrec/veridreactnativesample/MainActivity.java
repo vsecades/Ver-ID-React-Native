@@ -1,4 +1,4 @@
-package com.reactnativesample0_62;
+package com.appliedrec.veridreactnativesample;
 
 import com.facebook.react.ReactActivity;
 

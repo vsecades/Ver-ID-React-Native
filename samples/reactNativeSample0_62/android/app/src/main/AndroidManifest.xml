@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.reactnativesample0_62">
+  package="com.appliedrec.veridreactnativesample">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
       android:name=".MainApplication"
@@ -22,6 +23,7 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+        <meta-data android:name="com.appliedrec.verid.password" android:value="2d7da53b-e6a4-4d04-8824-b6c72c45e18d" />
     </application>
 
 </manifest>
