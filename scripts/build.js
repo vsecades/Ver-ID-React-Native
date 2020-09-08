@@ -32,8 +32,9 @@ const commands = {
 const SELECTION_OPTIONS_BY_QUESTIONS = (text) => {
     return [
         { name: text + ' sample version 0.61 ', value: 0 },
-        { name: text + ' sample version 0.62 ', value: 1 },
-        { name: text + ' sample version 0.63 ', value: 2 },
+        { name: text + ' sample version 0.61.5 ', value: 1 },
+        { name: text + ' sample version 0.62 ', value: 2 },
+        { name: text + ' sample version 0.63 ', value: 3 },
     ];
 };
 
@@ -57,10 +58,14 @@ const executeSampleCommand = (commandIndex, sample) => {
             break;
         }
         case 1: {
-            command = commands[commandIndex]('reactNativeSample0_62');
+            command = commands[commandIndex]('reactNativeSample0_61_5');
             break;
         }
         case 2: {
+            command = commands[commandIndex]('reactNativeSample0_62');
+            break;
+        }
+        case 3: {
             command = commands[commandIndex]('reactNativeSample0_63');
             break;
         }
@@ -82,7 +87,6 @@ const showQuestion = (message, options, callback) => {
 };
 
 showQuestion('Select one option to proceed.', SELECTION_OPTIONS, (selection) => {
-    console.log('[showQuestion] callback', selection);
     selection = selection.build;
     switch (selection) {
         case 0: {
@@ -110,7 +114,7 @@ showQuestion('Select one option to proceed.', SELECTION_OPTIONS, (selection) => 
             break;
         }
         case 3: {
-            executeCommand(commands[selection]);
+            executeCommand(commands[selection]());
             break;
         }
     }
