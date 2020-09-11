@@ -42,7 +42,7 @@ you can check if it is installed by running the following command.
     ```
    A command line menu will show, and looks like this:
 
-   ![ClI_menu](docs/CLI_Menu.png)
+   ![ClI_menu](docs/MainMenu.png)
 
 1. Please select the sample version you want to build.
 
@@ -56,9 +56,19 @@ the locations are:
         ```
             plugin_directory/samples/reactNativeSample[React Native Version]/ios
         ```
+1. If you are opening the android version you have to run metro server from the menu options,
+on iOS running the app will open a terminal with metro server and reload the app.
+
+      Note: When using Android real devices you could have issues connecting the device with metro server, so please use
+      the option  **Fix metro server Android** on the menu above.
 ## CLI Options
-TODO
+1. **Build react native sample** will install dependencies and install pods for iOS project.
+![ClI_menu](docs/BuildMenu.png)
+1. **Run react native sample** will open the iOS project on a simulator.
+![ClI_menu](docs/RunMenu.png)
+1. **Start Metro server** will open the iOS project on a simulator.
+![ClI_menu](docs/MetroServerMenu.png)
+1. **Fix metro server Android** will try to fix connection issues of an
+Android device and Metro server, by running the following command: `adb reverse tcp:8081 tcp:8081`
+![ClI_menu](docs/FixAndroid.png)
 
-## Issues
-
-TODO

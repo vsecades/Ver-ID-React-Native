@@ -11,7 +11,7 @@ const getSampleCommand = function (sample) {
 
 const SELECTION_OPTIONS = [
     { name: 'Build React Native Sample', value: 0 },
-    { name: 'Run React Native Sample', value: 1 },
+    { name: 'Run React Native Sample iOS Simulator', value: 1 },
     { name: 'Start Metro server', value: 2 },
     { name: 'Fix metro server Android', value: 3 },
 ];
@@ -73,7 +73,6 @@ const executeSampleCommand = (commandIndex, sample) => {
     executeCommand(command);
 };
 const showQuestion = (message, options, callback) => {
-    console.log('[showQuestion]', message);
     inquirer
         .prompt([
             {
