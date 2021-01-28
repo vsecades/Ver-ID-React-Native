@@ -45,8 +45,8 @@ class TestLiveComponent extends Component<{}, initialState> {
         let instance = await this.getInstance();
         if (instance) {
             registerUser(instance, this.state.USER_ID, showResult)
-                .catch(errorhandler)
-                .finally(deleteRegisteredUser.bind(this, instance, this.state.USER_ID));
+                .then(deleteRegisteredUser.bind(this, instance, this.state.USER_ID))
+                .catch(errorhandler);
         } else {
             showErrorAlert('Error, getting the instance');
         }
@@ -57,8 +57,17 @@ class TestLiveComponent extends Component<{}, initialState> {
         if (instance) {
             registerUser(instance, this.state.USER_ID)
                 .then(authenticate.bind(this, instance, this.state.USER_ID))
-                .catch(errorhandler)
-                .finally(deleteRegisteredUser.bind(this, instance, this.state.USER_ID));
+                .then(deleteRegisteredUser.bind(this, instance, this.state.USER_ID))
+                .catch(errorhandler);
+        } else {
+            showErrorAlert('Error, getting the instance');
+        }
+    };
+
+    authenticate = async () => {
+        let instance = await this.getInstance();
+        if (instance) {
+            authenticate(instance, this.state.USER_ID).catch(errorhandler);
         } else {
             showErrorAlert('Error, getting the instance');
         }
@@ -129,6 +138,7 @@ class TestLiveComponent extends Component<{}, initialState> {
             { title: 'register User', action: this.registerUser },
             { title: 'Register user Show result', action: this.registerUser.bind(this, true) },
             { title: 'Register user and Authenticate', action: this.registerUserAuthenticate },
+            { title: 'Authenticate', action: this.authenticate },
             { title: 'Capture Live Face and compare', action: this.captureLiveFaceAndCompare },
             { title: 'Detect Face in Sample Image and compare', action: this.detectFaceInSample },
         ];

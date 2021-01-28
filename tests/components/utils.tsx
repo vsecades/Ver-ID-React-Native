@@ -39,7 +39,15 @@ export const alert = (
 };
 
 export const showErrorAlert = (message: string, error?: any) => {
-    alert('Error', 'Error Found: ' + message);
+    let errorMsg;
+    if (error) {
+        if (error.stack) {
+            errorMsg = error.toString();
+        } else {
+            errorMsg = JSON.stringify(error);
+        }
+    }
+    alert('Error', `Error Found: ${message}: ${error ? errorMsg : ''}`);
     if (error) {
         console.error('Error:', error);
     }
