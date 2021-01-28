@@ -1,10 +1,10 @@
 package com.appliedrecreactnativepluginverid
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.util.Base64
 import android.util.Base64InputStream
+import android.util.Log
 import androidx.exifinterface.media.ExifInterface
 import com.appliedrec.verid.core2.*
 import com.appliedrec.verid.core2.session.*
@@ -14,8 +14,11 @@ import com.appliedrec.verid.ui2.VerIDSessionDelegate
 import com.facebook.react.bridge.*
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.launch
 import java.io.ByteArrayInputStream
+import java.util.*
 
 
 class ReactNativePluginVerIdModule(var mContext: ReactApplicationContext): ReactContextBaseJavaModule(mContext) {
@@ -310,11 +313,21 @@ class SessionDelegate: VerIDSessionDelegate {
     }
 
     override fun onSessionFinished(session: AbstractVerIDSession<*, *, *>?, result: VerIDSessionResult?) {
-        promise.resolve(result)
+        var sessionResult: VerIDSessionResult? = result
+        if (result == null) {
+            sessionResult = VerIDSessionResult(VerIDSessionException(Exception("Unknown failure")), Date().time, Date().time, null)
+        }
+        promise.resolve(Utils.gson.toJson(sessionResult, VerIDSessionResult::class.java))
     }
 
     override fun onSessionCanceled(session: AbstractVerIDSession<*, *, *>?) {
         promise.resolve(null)
     }
 
+}
+
+class Utils {
+    companion object {
+        val gson = Gson()
+    }
 }
