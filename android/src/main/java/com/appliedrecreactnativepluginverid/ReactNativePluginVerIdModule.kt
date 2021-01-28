@@ -84,8 +84,7 @@ class ReactNativePluginVerIdModule(var mContext: ReactApplicationContext): React
                 try {
                     promiseCallback = promise
                     val jsonSettings = args.getMap(0)?.getString("settings")
-                    val gson = Gson()
-                    val settings: RegistrationSessionSettings = gson.fromJson(jsonSettings, RegistrationSessionSettings::class.java)
+                    val settings: RegistrationSessionSettings = Utils.gson.fromJson(jsonSettings, RegistrationSessionSettings::class.java)
                     loadVerIDAndStartSession(null, promise, settings)
                 } catch (error: Exception) {
                     promise.reject(error)
@@ -103,8 +102,7 @@ class ReactNativePluginVerIdModule(var mContext: ReactApplicationContext): React
                 try {
                     promiseCallback = promise
                     val jsonSettings = args.getMap(0)?.getString("settings")
-                    val gson = Gson()
-                    val settings: AuthenticationSessionSettings = gson.fromJson(jsonSettings, AuthenticationSessionSettings::class.java)
+                    val settings: AuthenticationSessionSettings = Utils.gson.fromJson(jsonSettings, AuthenticationSessionSettings::class.java)
                     loadVerIDAndStartSession(null, promise, settings)
                 } catch (error: Exception) {
                     promise.reject(error)
@@ -122,8 +120,7 @@ class ReactNativePluginVerIdModule(var mContext: ReactApplicationContext): React
                 try {
                     promiseCallback = promise
                     val jsonSettings = args.getMap(0)?.getString("settings")
-                    val gson = Gson()
-                    val settings: LivenessDetectionSessionSettings = gson.fromJson(jsonSettings, LivenessDetectionSessionSettings::class.java)
+                    val settings: LivenessDetectionSessionSettings = Utils.gson.fromJson(jsonSettings, LivenessDetectionSessionSettings::class.java)
                     loadVerIDAndStartSession(null, promise, settings)
                 } catch (error: Exception) {
                     promise.reject(error)
@@ -138,12 +135,11 @@ class ReactNativePluginVerIdModule(var mContext: ReactApplicationContext): React
             GlobalScope.launch {
                 try {
                     val users = verID!!.userManagement.users
-                    val gson = Gson()
                     var usersFound = ""
                     usersFound = if (TESTING_MODE) {
                         "[\"user1\", \"user2\", \"user3\"]"
                     } else {
-                        gson.toJson(users, Array<String>::class.java)
+                        Utils.gson.toJson(users, Array<String>::class.java)
                     }
 
                     promise.resolve(usersFound);
@@ -181,9 +177,8 @@ class ReactNativePluginVerIdModule(var mContext: ReactApplicationContext): React
         loadVerIDAndRun(null, promise, Runnable {
            GlobalScope.launch {
                 try {
-                    val gson = Gson()
-                    val face1 = gson.fromJson(face1, RecognizableFace::class.java)
-                    val face2 = gson.fromJson(face2, RecognizableFace::class.java)
+                    val face1 = Utils.gson.fromJson(face1, RecognizableFace::class.java)
+                    val face2 = Utils.gson.fromJson(face2, RecognizableFace::class.java)
                     val score = verID!!.faceRecognition.compareSubjectFacesToFaces(arrayOf(face1), arrayOf(face2))
                     val response = JsonObject()
 
@@ -191,7 +186,7 @@ class ReactNativePluginVerIdModule(var mContext: ReactApplicationContext): React
                     response.addProperty("authenticationThreshold", verID!!.faceRecognition.authenticationThreshold)
                     response.addProperty("max", verID!!.faceRecognition.maxAuthenticationScore)
 
-                    val jsonResponse = gson.toJson(response)
+                    val jsonResponse = Utils.gson.toJson(response)
                     promise.resolve(jsonResponse)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -232,8 +227,7 @@ class ReactNativePluginVerIdModule(var mContext: ReactApplicationContext): React
                     }
 
                     val recognizableFaces = verID!!.faceRecognition.createRecognizableFacesFromFaces(faces, verIDImage)
-                    val gson = Gson()
-                    val encodedFace = gson.toJson(recognizableFaces[0])
+                    val encodedFace = Utils.gson.toJson(recognizableFaces[0])
                     promise.resolve(encodedFace)
                 } catch (e: Exception) {
                     promise.reject(e)
