@@ -118,7 +118,7 @@ export const authenticate = async (instance: VerID, userID: string) => {
                     }
                 })
                 .catch((error) => {
-                    showErrorAlert('Authenticate, unknown error!', error);
+                    showErrorAlert('Authenticate, error!', error);
                     reject(error);
                 });
         } else {
@@ -142,26 +142,29 @@ export const captureLiveFace = async (instance: VerID, singlePose?: boolean, sho
             .captureLiveFace(settings)
             .then((response: any) => {
                 if (!response) {
-                    showErrorAlert('Session Canceled!');
-                    return;
+                    throw new Error('Session Canceled!');
                 } else if (!response.error) {
-                    if (response.attachments.length > 0) {
-                        let faces = response.attachments
-                            .filter((attachment: DetectedFace) => {
-                                return (
-                                    verifyIfAttachmentIsCorrect(attachment) &&
-                                    attachment.bearing === ReactNativePluginVerId.Bearing.STRAIGHT
-                                );
-                            })
-                            .map((attachment: DetectedFace) => {
-                                return attachment.recognizableFace;
+                    try {
+                        if (response.attachments.length > 0) {
+                            let faces = response.attachments
+                                .filter((attachment: DetectedFace) => {
+                                    return (
+                                        verifyIfAttachmentIsCorrect(attachment) &&
+                                        attachment.bearing === ReactNativePluginVerId.Bearing.STRAIGHT
+                                    );
+                                })
+                                .map((attachment: DetectedFace) => {
+                                    return attachment.recognizableFace;
+                                });
+                            return showSuccessAlert('Faces attachment are correct!').then(() => {
+                                return faces;
                             });
-                        return showSuccessAlert('Faces attachment are correct!').then(() => {
-                            return faces;
-                        });
-                    } else {
-                        showErrorAlert('Error retrieving the faces!', response.error);
-                        throw new Error('Error retrieving the faces!');
+                        } else {
+                            showErrorAlert('Error retrieving the faces!', response.error);
+                            throw new Error('Error retrieving the faces!');
+                        }
+                    } catch (e) {
+                        throw e;
                     }
                 } else {
                     showErrorAlert('Session Error, error capturing face!', response.error);
@@ -169,7 +172,7 @@ export const captureLiveFace = async (instance: VerID, singlePose?: boolean, sho
                 }
             })
             .catch((error) => {
-                showErrorAlert('Capture Live Face, unknown error!', error);
+                showErrorAlert('Capture Live Face, error', error);
                 throw error;
             });
     }
